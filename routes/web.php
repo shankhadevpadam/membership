@@ -17,6 +17,7 @@ Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
     //Route::resource('roles', App\Http\Controllers\Account\RolesController::class);
     Route::get('roles', App\Livewire\Account\Roles::class)->name('roles.index');
+    Route::get('role-manager', App\Livewire\Account\RolePermissionManager::class);
 
     Route::get('settings/profile', Profile::class)->name('settings.profile');
     Route::get('settings/password', Password::class)->name('settings.password');
