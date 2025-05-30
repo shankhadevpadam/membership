@@ -1,14 +1,14 @@
 <div class="flex h-full w-full flex-1 flex-col gap-4">
     <div class="mb-8 animate-fade-in">
-        <h1 class="text-4xl font-bold text-slate-800">Roles</h1>
+        <h1 class="text-4xl font-bold text-slate-800">Users</h1>
     </div>
 
     <div class="flex">
-        <flux:modal.trigger name="role-modal">
-            <flux:button>Add Role</flux:button>
+        <flux:modal.trigger name="user-modal">
+            <flux:button>Add User</flux:button>
         </flux:modal.trigger>
 
-        <flux:modal name="role-modal" class="w-full">
+        <flux:modal name="user-modal" class="w-full">
             <form wire:submit="{{ $editMode ? 'update' : 'store' }}">
                 <div class="space-y-6">
                     <flux:input label="Name" placeholder="Name" wire:model="name" />
@@ -21,9 +21,9 @@
         <flux:modal wire:model.self="showConfirmModal" class="w-full">
             <div class="space-y-6">
                 <div>
-                    <flux:heading size="lg">Delete role?</flux:heading>
+                    <flux:heading size="lg">Delete user?</flux:heading>
                     <flux:text class="mt-2">
-                        <p>You're about to delete this role. This action cannot be reversed.</p>
+                        <p>You're about to delete this user. This action cannot be reversed.</p>
                     </flux:text>
                 </div>
                 <div class="flex gap-2">
@@ -34,43 +34,6 @@
                     <flux:button type="button" variant="danger" wire:click="delete">Delete</flux:button>
                 </div>
             </div>
-        </flux:modal>
-
-        <flux:modal wire:model.self="showPermissionsModal" class="w-full">
-            <form wire:submit="saveAssignment" class="space-y-6">
-                <div>
-                    <flux:heading size="lg">Assign Permissions</flux:heading>
-                </div>
-
-                <div class="max-h-96 overflow-y-auto">
-                    <div class="space-y-3">
-                        <div class="grid grid-cols-1 md:grid-cols-2">
-                            @foreach ($this->groupPermissions as $key => $value)
-                                <div class="p-1 flex flex-col justify-center">
-                                    <h2 class="font-semibold mb-2">{{ Str::title($key) }}</h2>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 border rounded-md p-2">
-                                        @foreach ($value as $permission)
-                                            <div class="inline-flex space-x-1 gap-2">
-                                                <label for="{{ $permission->name }}" class="text-sm font-semibold">{{ Str::headline($permission->name) }}</label>
-                                                <flux:switch 
-                                                    wire:model="selectedPermissions"
-                                                    value="{{ $permission->id }}"
-                                                />
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex gap-2">
-                    <flux:button type="submit" variant="primary">
-                        Save Permissions
-                    </flux:button>
-                </div>
-            </form>
         </flux:modal>
     </div>
 
@@ -98,23 +61,25 @@
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name
                         </th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email
+                        </th>
                         <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Action</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                    @forelse ($roles as $role)
+                    @forelse ($users as $user)
                         <tr class="hover:bg-slate-50">
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">
-                                {{ $role->name }}</td>
+                                {{ $user->name }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">
+                                    {{ $user->email }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <div class="flex items-center justify-end gap-2">
-                                    <flux:button size="sm" @click="$wire.showPermissionsModal = true, $wire.assignPermissions('{{ $role->id }}')">Assign
-                                        Permissions</flux:button>
                                     <flux:button icon="pencil-square" variant="filled" size="sm"
-                                        wire:click="edit({{ $role->id }})" />
+                                        wire:click="edit({{ $user->id }})" />
                                     <flux:button icon="trash" variant="danger" size="sm"
-                                        wire:click="confirmDelete({{ $role->id }})" />
+                                        wire:click="confirmDelete({{ $user->id }})" />
                                 </div>
                             </td>
                         </tr>
@@ -127,11 +92,11 @@
             </table>
         </div>
 
-        @if ($roles->hasPages())
+        @if ($users->hasPages())
             <!-- Pagination -->
             <div class="px-6 py-4 border-t border-gray-200 flex items-center">
                 <div class="flex space-x-1">
-                    {{ $roles->links() }}
+                    {{ $users->links() }}
                 </div>
             </div>
         @endif

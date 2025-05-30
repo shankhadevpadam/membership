@@ -3,17 +3,24 @@
 namespace App\Livewire\Account;
 
 use Flux\Flux;
-use Livewire\Attributes\Computed;
 use Livewire\Component;
-use Livewire\Attributes\Layout;
+use Livewire\Attributes\Url;
+use Livewire\WithPagination;
 use Livewire\Attributes\Title;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\Validate;
-use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 #[Layout('components.layouts.app')]
 class Roles extends Component
 {
+    use WithPagination;
+    
+    #[Url]
+    public string $search = '';
+
     #[Validate('required|max:255')]
     public string $name;
 
@@ -144,7 +151,7 @@ class Roles extends Component
     public function render()
     {
         return view('livewire.account.roles', [
-            'roles' => Role::paginate(),
+            'roles' => Role::where('name', 'LIKE', "{$this->search}%")->paginate(),
         ]);
     }
 }

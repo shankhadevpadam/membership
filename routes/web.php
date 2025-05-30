@@ -9,15 +9,16 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::view('/company/register', 'frontend.app');
+
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
-    //Route::resource('roles', App\Http\Controllers\Account\RolesController::class);
     Route::get('roles', App\Livewire\Account\Roles::class)->name('roles.index');
-    Route::get('role-manager', App\Livewire\Account\RolePermissionManager::class);
+    Route::get('users', App\Livewire\Account\Users::class)->name('users.index');
 
     Route::get('settings/profile', Profile::class)->name('settings.profile');
     Route::get('settings/password', Password::class)->name('settings.password');
