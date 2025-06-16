@@ -14,9 +14,15 @@
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Platform')" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
-                    <flux:navlist.item icon="cog-6-tooth" :href="route('roles.index')" :current="request()->routeIs('roles.index')" wire:navigate>{{ __('Roles') }}</flux:navlist.item>
-                    <flux:navlist.item icon="users" :href="route('users.index')" :current="request()->routeIs('users.index')" wire:navigate>{{ __('Users') }}</flux:navlist.item>
                 </flux:navlist.group>
+
+                <flux:navlist.group heading="Membership" expandable>
+                    <flux:navlist.item href="{{ route('membership.members.index') }}" :current="request()->routeIs('membership.members.index')" wire:navigate>Members</flux:navlist.item>
+                    <flux:navlist.item href="{{ route('membership.types.index') }}" :current="request()->routeIs('membership.types.index')" wire:navigate>Types</flux:navlist.item>
+                </flux:navlist.group>
+
+                <flux:navlist.item icon="cog-6-tooth" :href="route('roles.index')" :current="request()->routeIs('roles.index')" wire:navigate>{{ __('Roles') }}</flux:navlist.item>
+                <flux:navlist.item icon="users" :href="route('users.index')" :current="request()->routeIs('users.index')" wire:navigate>{{ __('Users') }}</flux:navlist.item>
             </flux:navlist>
 
             <flux:spacer />

@@ -17,6 +17,9 @@ Route::view('dashboard', 'dashboard')
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
+
+    Route::get('membership/members', App\Livewire\Membership\Members::class)->name('membership.members.index');
+    Route::get('membership/types', App\Livewire\Membership\Types::class)->name('membership.types.index');
     Route::get('roles', App\Livewire\Account\Roles::class)->name('roles.index');
     Route::get('users', App\Livewire\Account\Users::class)->name('users.index');
 
