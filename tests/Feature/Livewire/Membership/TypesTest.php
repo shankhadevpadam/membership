@@ -1,9 +1,9 @@
 <?php
 
-use App\Livewire\Membership\Type;
 use Livewire\Livewire;
+use App\Livewire\Membership\Types;
 
 it('renders successfully', function () {
-    Livewire::test(Type::class)
+    Livewire::test(Types::class)
         ->assertStatus(200);
 });
