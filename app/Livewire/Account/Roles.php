@@ -53,6 +53,8 @@ class Roles extends Component
 
     public function edit(int $id)
     {
+        $this->resetValidation();
+        
         $this->editMode = true;
 
         $this->role = Role::findById($id);

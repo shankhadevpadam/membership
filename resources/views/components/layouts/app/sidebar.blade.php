@@ -21,6 +21,7 @@
                     <flux:navlist.item href="{{ route('membership.types.index') }}" :current="request()->routeIs('membership.types.index')" wire:navigate>Types</flux:navlist.item>
                 </flux:navlist.group>
 
+                <flux:navlist.item icon="calendar-days" :href="route('events.index')" :current="request()->routeIs('events.index')" wire:navigate>{{ __('Events') }}</flux:navlist.item>
                 <flux:navlist.item icon="cog-6-tooth" :href="route('roles.index')" :current="request()->routeIs('roles.index')" wire:navigate>{{ __('Roles') }}</flux:navlist.item>
                 <flux:navlist.item icon="users" :href="route('users.index')" :current="request()->routeIs('users.index')" wire:navigate>{{ __('Users') }}</flux:navlist.item>
             </flux:navlist>

@@ -9,6 +9,10 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::get('/debug', function () {
+    dump(App\Models\User::find(1));
+});
+
 Route::view('/company/register', 'frontend.app');
 
 Route::view('dashboard', 'dashboard')
@@ -20,6 +24,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('membership/members', App\Livewire\Membership\Members::class)->name('membership.members.index');
     Route::get('membership/types', App\Livewire\Membership\Types::class)->name('membership.types.index');
+    Route::get('events', App\Livewire\Event\Events::class)->name('events.index');
+
     Route::get('roles', App\Livewire\Account\Roles::class)->name('roles.index');
     Route::get('users', App\Livewire\Account\Users::class)->name('users.index');
 

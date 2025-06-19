@@ -55,6 +55,8 @@ class Types extends Component
 
     public function edit(int $id)
     {
+        $this->resetValidation();
+        
         $this->editMode = true;
 
         $this->type = MembershipType::find($id);
